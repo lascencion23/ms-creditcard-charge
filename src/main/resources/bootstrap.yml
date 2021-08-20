@@ -1,12 +1,14 @@
 spring:
   application:
     name: ms-credit-charge
-
+  profiles:
+    active: ${ENVIRONMENT}
   cloud:
     config:
-      uri: http://localhost:8888
+      uri: ${CONFIG_URI}
       fail-fast: true
       retry:
         max-attempts: 20
         max-interval: 15000
         initial-interval: 10000
+      profile: ${ENVIRONMENT}
