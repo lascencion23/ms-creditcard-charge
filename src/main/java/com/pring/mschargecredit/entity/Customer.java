@@ -20,11 +20,6 @@ public class Customer {
     private DocumentType documentType;
     
     private String documentNumber;
-    
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date dateOfBirth;
-
-    private String gender;
 
     public enum DocumentType {
     	DNI,

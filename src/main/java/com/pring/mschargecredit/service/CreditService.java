@@ -21,4 +21,6 @@ public interface CreditService {
     Mono<Double> findTotalConsumptionCreditCardId(String t);
 
     Mono<CreditCard> findCreditCard(String id);
+    
+    Flux<Credit> findByCustomerId(String id);
 }

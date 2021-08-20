@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -20,8 +23,18 @@ public class Credit {
 
     private CreditCard creditCard;
 
+    private Status status;
+    
     private Double amount;
-
+    
     private LocalDateTime date;
+    
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate expirationDate;
 
+    public enum Status{
+    	CREATED,
+    	PAIDOUT,
+    	DEFEATED
+    }
 }
