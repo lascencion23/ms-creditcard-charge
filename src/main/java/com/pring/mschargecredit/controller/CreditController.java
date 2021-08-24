@@ -34,33 +34,31 @@ public class CreditController {
 	}
 
 	@GetMapping("/creditExpiredById/{id}")
-	public Mono<Long> findByCustomer(@PathVariable String id) {
+	public Mono<Long> creditExpiredByIdCustomer(@PathVariable String id) {
 
 		Mono<Long> credits = creditService.findByCustomerId(id)
 		.filter(crts -> crts.getStatus() == Status.DEFEATED).count();
 		
 		return credits;
 	}
-
-//	@GetMapping("/creditExpiredById/{id}")
-//	public Mono<Boolean> findByCustomer(@PathVariable String id) {
-//
-//		Mono<Boolean> credits = creditService.findByCustomerId(id)
-//		.filter(crts -> crts.getStatus() == Status.DEFEATED)
-//		.count()
-//		.map(c -> (c.intValue()>0) ? true : false);
-//		
-//		return credits;
-//	}
+	
+	@GetMapping("/findByIdCustomer/{id}")
+	public Flux<Credit> findByIdCustomer(@PathVariable String id) {
+		return creditService.findByCustomerId(id);
+	}
 	
 	
+	@GetMapping("/findByIdCreditCard/{id}")
+	public Flux<Credit> findByIdCreditCard(@PathVariable String id){
+		return creditService.findCreditCardId(id);
+	}
 	
 	
 	@PostMapping("/create")
 	public Mono<ResponseEntity<Credit>> create(@RequestBody Credit credit) {
 
 		return creditService.findCreditCard(credit.getCreditCard().getId())
-				.flatMap(cc -> creditService.findCountCreditCardId(cc.getId()).filter(count -> {
+				.flatMap(cc -> creditService.findCreditCardId(cc.getId()).count().filter(count -> {
 					// VERIFICAR CANTIDAD DE CREDITOS PERMITIDOS
 					switch (cc.getCustomer().getTypeCustomer().getValue()) {
 					case PERSONAL:

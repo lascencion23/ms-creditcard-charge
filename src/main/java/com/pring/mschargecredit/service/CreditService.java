@@ -16,7 +16,7 @@ public interface CreditService {
 
     Mono<Boolean> delete(String t);
 
-    Mono<Long> findCountCreditCardId(String t);
+    Flux<Credit> findCreditCardId(String t);
 
     Mono<Double> findTotalConsumptionCreditCardId(String t);
 

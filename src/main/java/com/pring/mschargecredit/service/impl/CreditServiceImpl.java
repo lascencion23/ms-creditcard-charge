@@ -1,15 +1,10 @@
 package com.pring.mschargecredit.service.impl;
 
 import com.pring.mschargecredit.entity.Credit;
-import com.pring.mschargecredit.entity.Credit.Status;
+
 import com.pring.mschargecredit.entity.CreditCard;
 import com.pring.mschargecredit.repository.CreditRepository;
 import com.pring.mschargecredit.service.CreditService;
-
-import lombok.extern.slf4j.Slf4j;
-
-import java.time.LocalDate;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.circuitbreaker.resilience4j.ReactiveResilience4JCircuitBreakerFactory;
@@ -21,7 +16,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-@Slf4j
 public class CreditServiceImpl implements CreditService {
 
 	private final WebClient webClient;
@@ -80,8 +74,8 @@ public class CreditServiceImpl implements CreditService {
 	}
 
 	@Override
-	public Mono<Long> findCountCreditCardId(String t) {
-		return creditRepository.findByCreditCardId(t).count();
+	public Flux<Credit> findCreditCardId(String t) {
+		return creditRepository.findByCreditCardId(t);
 	}
 
 	@Override
